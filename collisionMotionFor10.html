@@ -55,8 +55,8 @@
 
 
 <script>
-var docW,
-    docH;
+var docW = document.documentElement.clientWidth,
+    docH = document.documentElement.clientHeight;
     window.onresize = function () {
         docW = document.documentElement.clientWidth;
         docH = document.documentElement.clientHeight;
@@ -74,6 +74,8 @@ var docW,
         }
         var  maxW = docW - 50,
              maxH = docH - 50;
+        console.log(maxW);
+
         running();
         function running() {
 
@@ -81,23 +83,26 @@ var docW,
                 var div = document.getElementsByTagName("div")[i],
                     speedW = div.speedW,
                     speedH = div.speedH;
+                console.log(div);
                 console.log(div.speedH);
+                var top = div.offsetTop,
+                    left = div.offsetLeft;
+                    top += speedH;
+                    left += speedW;
 
-                if (div.offsetTop < 0 || div.offsetTop > maxH) {
-                    div.offsetTop = Math.floor(Math.max(0, div.offsetTop));
-                    div.offsetTop = Math.floor(Math.min(maxH, div.offsetTop));
+                if (top < 0 || top > maxH) {
+                    top = Math.floor(Math.max(0, top));
+                    top = Math.floor(Math.min(maxH, top));
                     div.speedH = -speedH;
                 }
-                if (div.offsetLeft < 0 || div.offsetLeft > maxW) {
-                    div.offsetLeft = Math.floor(Math.max(0, div.offsetLeft));
-                    div.offsetLeft = Math.floor(Math.min(maxH, div.offsetLeft));
+                if (left < 0 || left > maxW) {
+                   left = Math.floor(Math.max(0, left));
+                   left = Math.floor(Math.min(maxW, left));
                     div.speedW = -speedW;
                 }
-                div.style.top = div.offsetTop + "px";
-                div.style.left = div.offsetLeft + "px";
-                div.offsetTop += speedH;
-                div.offsetLeft += speedW;
-
+                div.style.top = top + "px";
+                div.style.left = left + "px";
+                //console.log(top + "px");
             }
             requestAnimationFrame(running);
         }
