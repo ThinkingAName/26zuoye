@@ -1,0 +1,109 @@
+<!doctype html>               <!--申明html文档-->
+<html>
+<head>
+    <meta charset="utf-8">      <!--字符编码为国际编码-->
+    <meta name="Author" content="40期风屿JS——不懂就问">    <!--网页创建者-->
+    <meta name="Keywords" content="作业，练习题">         <!--供搜索引擎搜索匹配的关键-->
+    <meta name="description" content="课后练习题作业，熟悉课堂学习操作">  <!--在搜索有结果页面显示的网页描述-->
+    <title>第2次课后作业</title>   <!--网页标题-->
+    <!--
+          <link rel="stylesheet" type="text/css" href="css/common.css">
+          <link rel="stylesheet" type="text/css" href="css/index.css">
+          <link rel="stylesheet" type="text/css" href="font/iconfont.css">
+          <link rel="stylesheet" type="text/css" href="css/swiper.min.css">
+          -->
+    <style>
+        body, p, ul, dl, dd, ol, h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+        }
+
+        ul, ol {
+            padding-left: 0;
+            list-style: none;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 0;
+        }
+
+        em, i {
+            font-style: normal; /*设置字体样式：正常显示（就是不倾斜）*/
+        }
+
+        strong, b {
+            font-weight: normal; /*设置字体加粗：正常显示（就是不加粗）*/
+        }
+
+        a {
+            text-decoration: none; /*去掉下划线*/
+        }
+        div{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+
+
+<script>
+var docW,
+    docH;
+    window.onresize = function () {
+        docW = document.documentElement.clientWidth;
+        docH = document.documentElement.clientHeight;
+    };
+
+    motion(10);
+    function motion(num) {
+        for (var i = 0;i < num; i++) {
+            var div = document.createElement("div");
+            div.style.backgroundColor = "rgb(" + Math.floor(Math.random()*256)+ ","+ Math.floor(Math.random()*256)+ ","+ Math.floor(Math.random()*256)+ ")";
+            div.speed = Math.floor(Math.random()*11)+3;
+            //console.log(div.speed);
+            document.body.appendChild(div);
+        }
+
+        running();
+        function running() {
+
+            for (var i = 0; i < num; i++) {
+                var div = document.getElementsByTagName("div")[i],
+                    maxW = docW - div.clientWidth,
+                    maxH = docH - div.clientHeight,
+                    speedW = div.speed,
+                    speedH = div.speed;
+                console.log(div.speed);
+
+                if (div.offsetTop < 0 || div.offsetTop > maxH) {
+                    div.offsetTop = Math.floor(Math.max(0, div.offsetTop));
+                    div.offsetTop = Math.floor(Math.min(maxH, div.offsetTop));
+                    speedH = -speedH;
+                }
+                if (div.offsetLeft < 0 || div.offsetLeft > maxW) {
+                    div.offsetLeft = Math.floor(Math.max(0, div.offsetLeft));
+                    div.offsetLeft = Math.floor(Math.min(maxH, div.offsetLeft));
+                    speedW = -speedW;
+                }
+                div.style.top = div.offsetTop + "px";
+                div.style.left = div.offsetLeft + "px";
+                div.offsetTop += speedH;
+                div.offsetLeft += speedW;
+
+            }
+            requestAnimationFrame(running);
+        }
+
+    }
+
+</script>
+</body>
+</html>

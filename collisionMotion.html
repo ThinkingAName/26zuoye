@@ -1,0 +1,96 @@
+<!doctype html>               <!--申明html文档-->
+<html>
+<head>
+    <meta charset="utf-8">      <!--字符编码为国际编码-->
+    <meta name="Author" content="40期风屿JS——不懂就问">    <!--网页创建者-->
+    <meta name="Keywords" content="作业，练习题">         <!--供搜索引擎搜索匹配的关键-->
+    <meta name="description" content="课后练习题作业，熟悉课堂学习操作">  <!--在搜索有结果页面显示的网页描述-->
+    <title>第2次课后作业</title>   <!--网页标题-->
+    <!--
+          <link rel="stylesheet" type="text/css" href="css/common.css">
+          <link rel="stylesheet" type="text/css" href="css/index.css">
+          <link rel="stylesheet" type="text/css" href="font/iconfont.css">
+          <link rel="stylesheet" type="text/css" href="css/swiper.min.css">
+          -->
+    <style>
+        body, p, ul, dl, dd, ol, h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+        }
+
+        ul, ol {
+            padding-left: 0;
+            list-style: none;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 0;
+        }
+
+        em, i {
+            font-style: normal; /*设置字体样式：正常显示（就是不倾斜）*/
+        }
+
+        strong, b {
+            font-weight: normal; /*设置字体加粗：正常显示（就是不加粗）*/
+        }
+
+        a {
+            text-decoration: none; /*去掉下划线*/
+
+        }
+        .ball{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50px;
+            height: 50px;
+            background-color: skyblue;
+            border-radius: 50%;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="ball"></div>
+<script>
+    var ball = document.getElementsByClassName("ball")[0],
+        docW = document.documentElement.clientWidth,
+        docH = document.documentElement.clientHeight,
+        speedW = Math.floor(Math.random()*11)+3,
+        speedH = Math.floor(Math.random()*11)+3;
+        ball.style.backgroundColor = "rgb(" + Math.floor(Math.random()*256)+ ","+ Math.floor(Math.random()*256)+ ","+ Math.floor(Math.random()*256)+ ")";
+
+     // 监听窗口的改变
+    window.onresize = function () {
+        docW = document.documentElement.clientWidth;
+        docH = document.documentElement.clientHeight;
+    };
+    // console.log(docW);
+    // console.log(ball.clientHeight);
+    function fn() {
+        ball.style.top = ball.offsetTop+speedH +"px";
+        ball.style.left = ball.offsetLeft+speedW + "px";
+        if (ball.offsetTop <= 0 || ball.offsetTop >= docH - ball.clientHeight) {
+            // 通过math.max和math.min,让定位top值在最小和最大之间；
+            ball.style.top = Math.max(0,ball.offsetTop) +"px";
+            ball.style.top = Math.min(docH - ball.clientHeight,ball.offsetTop) +"px";
+            speedH = -speedH;
+        };
+        console.log(Math.min(docH - ball.clientHeight,ball.offsetTop));
+        if (ball.offsetLeft <= 0 || ball.offsetLeft >= docW - ball.clientWidth) {
+            // 通过math.max和math.min,让定位left值在最小和最大之间；
+            ball.style.Left = Math.max(0,ball.offsetLeft) +"px";
+            ball.style.Left = Math.min(docW - ball.clientWidth,ball.offsetLeft) +"px";
+            speedW = -speedW;
+        }
+       // console.log(ball.offsetTop);
+        requestAnimationFrame(fn);
+    }
+    fn();
+</script>
+</body>
+</html>
